@@ -7,7 +7,7 @@ on:
     branches:
       - master
 jobs:
-  build:
+  autograding:
     name: Autograding
     runs-on: ubuntu-latest
     steps:
@@ -34,9 +34,8 @@ jobs:
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
-          # TODO insert your variant
-          collection: <variant>/postman/collection.json
-          environment: <variant>/postman/environment.json
+          collection: v3/postman/collection.json
+          environment: v3/postman/environment.json
           delayRequest: 100
           reporters: '[ "cli" ]'
 
@@ -44,15 +43,15 @@ jobs:
         id: autograder
         continue-on-error: true
 
-      - name: Github auto grader mark
-        uses: Romanow/google-sheet-autograder-marker@v1.0
-        with:
-          google_token: ${{secrets.GOOGLE_API_KEY}}
-          sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
-          homework_number: 2
-          user_column: 'D'
-          column_offset: 'F'
-          mark: "'+"
+      # - name: Github auto grader mark
+      #   uses: Romanow/google-sheet-autograder-marker@v1.0
+      #   with:
+      #     google_token: ${{secrets.GOOGLE_API_KEY}}
+      #     sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
+      #     homework_number: 2
+      #     user_column: 'D'
+      #     column_offset: 'F'
+      #     mark: "'+"
 
       - name: Stop containers
         if: always()
