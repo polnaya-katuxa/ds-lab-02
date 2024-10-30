@@ -19,6 +19,12 @@ jobs:
 
       # TODO build and run unit tests
 
+      - name: Current dir
+        run: ls -la
+
+      - name: Current dir name
+        run: pwd
+
       - name: Build images
         timeout-minutes: 10
         run: docker compose build
