@@ -33,4 +33,4 @@ jobs:
           context: ${{ inputs.service-name }}
           file: Dockerfile
           push: true
-          tags: polnayakatuxa/ds-lab-02/${{ inputs.service-name }}:${{ github.sha }}
+          tags: polnayakatuxa/ds-lab-02-${{ inputs.service-name }}:${{ github.sha }}
