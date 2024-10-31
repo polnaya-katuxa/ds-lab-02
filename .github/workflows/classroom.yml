@@ -10,7 +10,7 @@ on:
 jobs:
   build-cars-service:
     name: Build cars-service
-    uses: ./.github/workflows/build-service.yml@master
+    uses: ./.github/workflows/build-service.yml
     with:
       service-name: cars-service
 
