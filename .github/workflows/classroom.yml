@@ -6,7 +6,32 @@ on:
   pull_request:
     branches:
       - master
+
 jobs:
+  build-cars-service:
+    name: Build cars-service
+    uses: ./.github/workflows/build-service.yml@master
+    with:
+      service-name: cars-service
+
+  build-payment-service:
+    name: Build payment-service
+    uses: ./.github/workflows/build-service.yml@master
+    with:
+      service-name: payment-service
+
+  build-rental-service:
+    name: Build rental-service
+    uses: ./.github/workflows/build-service.yml@master
+    with:
+      service-name: rental-service
+
+  build-gateway-service:
+    name: Build gateway
+    uses: ./.github/workflows/build-service.yml@master
+    with:
+      service-name: gateway
+
   autograding:
     name: Autograding
     runs-on: ubuntu-latest
@@ -47,3 +72,43 @@ jobs:
         if: always()
         continue-on-error: true
         run: docker compose down -v
+
+  build-image-cars-service:
+    name: Build and push cars-service Docker image
+    needs: ["build", "autograding"]
+    uses: ./.github/workflows/build-image.yml@master
+    with:
+      service-name: cars-service
+    secrets:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+
+  build-image-gateway-service:
+    name: Build and push gateway Docker image
+    needs: ["build", "autograding"]
+    uses: ./.github/workflows/build-image.yml@master
+    with:
+      service-name: gateway
+    secrets:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+
+  build-image-payment-service:
+    name: Build and push payment-service Docker image
+    needs: ["build", "autograding"]
+    uses: ./.github/workflows/build-image.yml@master
+    with:
+      service-name: payment-service
+    secrets:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+
+  build-image-rental-service:
+    name: Build and push rental-service Docker image
+    needs: ["build", "autograding"]
+    uses: ./.github/workflows/build-image.yml@master
+    with:
+      service-name: rental-service
+    secrets:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
