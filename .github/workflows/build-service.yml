@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build Cars-Service
+    name: Build service
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,11 +21,8 @@ jobs:
         with:
           go-version: "1.22.4"
 
-      - name: Go to workdir
-        run: cd ${{ inputs.service-name }}
-
       - name: Tidy
-        run: go mod tidy
+        run: cd ${{ inputs.service-name }} && go mod tidy
 
       - name: Build service
-        run: go build ./cmd/app/main.go
+        run: cd ${{ inputs.service-name }} && go build ./cmd/app/main.go
