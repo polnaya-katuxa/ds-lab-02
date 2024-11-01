@@ -32,14 +32,42 @@ jobs:
     with:
       service-name: gateway
 
+  test-cars-service:
+    name: Test cars-service
+    uses: ./.github/workflows/test-service.yml
+    needs: ["build-cars-service"]
+    with:
+      service-name: cars-service
+
+  test-payment-service:
+    name: Test payment-service
+    needs: ["build-payment-service"]
+    uses: ./.github/workflows/test-service.yml
+    with:
+      service-name: payment-service
+
+  test-rental-service:
+    name: Test rental-service
+    needs: ["build-rental-service"]
+    uses: ./.github/workflows/test-service.yml
+    with:
+      service-name: rental-service
+
+  test-gateway-service:
+    name: Test gateway
+    needs: ["build-gateway-service"]
+    uses: ./.github/workflows/test-service.yml
+    with:
+      service-name: gateway
+
   autograding:
     name: Autograding
     needs:
       [
-        "build-cars-service",
-        "build-payment-service",
-        "build-rental-service",
-        "build-gateway-service",
+        "test-cars-service",
+        "test-payment-service",
+        "test-rental-service",
+        "test-gateway-service",
       ]
     runs-on: ubuntu-latest
     steps:

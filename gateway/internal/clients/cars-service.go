@@ -13,10 +13,10 @@ import (
 )
 
 type CarsServiceClient struct {
-	c *cars_service.Client
+	c cars_service.ClientInterface
 }
 
-func NewCarsServiceClient(c *cars_service.Client) *CarsServiceClient {
+func NewCarsServiceClient(c cars_service.ClientInterface) *CarsServiceClient {
 	return &CarsServiceClient{
 		c: c,
 	}

@@ -79,6 +79,8 @@ func (c *Cars) Unbook(ctx context.Context, uid uuid.UUID) (*models.Car, error) {
 	return car, nil
 }
 
+//go:generate mockery --all --with-expecter --exported --output mocks/
+
 type carsRepo interface {
 	List(ctx context.Context, paginator models.CarPaginator) (*models.CarList, error)
 	Get(ctx context.Context, uid uuid.UUID) (*models.Car, error)

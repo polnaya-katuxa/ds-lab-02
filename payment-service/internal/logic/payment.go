@@ -56,6 +56,8 @@ func (p *Payment) Get(ctx context.Context, uid uuid.UUID) (*models.Payment, erro
 	return payment, nil
 }
 
+//go:generate mockery --all --with-expecter --exported --output mocks/
+
 type paymentRepo interface {
 	Get(ctx context.Context, uid uuid.UUID) (*models.Payment, error)
 	Create(ctx context.Context, payment models.Payment) (*models.Payment, error)

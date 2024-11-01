@@ -100,6 +100,8 @@ func (r *Rental) Get(ctx context.Context, uid uuid.UUID, username string) (*mode
 	return rent, nil
 }
 
+//go:generate mockery --all --with-expecter --exported --output mocks/
+
 type rentalRepo interface {
 	Get(ctx context.Context, uid uuid.UUID) (*models.Rent, error)
 	GetUserRentals(ctx context.Context, username string) ([]models.Rent, error)
